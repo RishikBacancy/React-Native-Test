@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import { View, Button, StyleSheet, FlatList} from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { View, Button, StyleSheet, Modal} from "react-native";
 import InputField from "../components/InputField";
 import Card from "../components/Card";
 
-const AddScreen = ({navigation}) =>
+const AddScreen = props =>
 {
-
   const [fname,setFname] = useState("");
   const [lname,setLname] = useState("");
   const [phNumber,setPhNumber] = useState("");
@@ -25,6 +24,11 @@ const AddScreen = ({navigation}) =>
     setLname(txtInput);
   };
 
+  const saveHandler = () =>
+  {
+    props.navigation.navigate("Home",{fname,lname,phNumber});
+  };
+
   return(
     <View style={styles.container}>
       <Card>
@@ -40,7 +44,7 @@ const AddScreen = ({navigation}) =>
           onChangeText={inputLnHandler}
           value={lname}></InputField>
 
-        <InputField 
+        <InputField
           placeholder="Phone Number" 
           maxLength={10}
           keyboardType="number-pad" 
@@ -50,10 +54,11 @@ const AddScreen = ({navigation}) =>
 
         <Button
           title="Save"
-          onPress={()=>navigation.navigate("Home",{fname,lname,phNumber })}
+          onPress={saveHandler}
         />
       </Card>
     </View>
+    
   );
 }
 

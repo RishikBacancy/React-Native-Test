@@ -1,27 +1,23 @@
-import React, { useState } from "react";
-import { View, Button, StyleSheet, FlatList} from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { View, Button, StyleSheet, FlatList, Text} from "react-native";
+import Card from "../components/Card";
 
-const HomeScreen = ({navigation,route}) =>
+const HomeScreen = props =>
 {
+  
+  var newDatalist = {...props.route.params};
 
-  const details = route.params;
-  const [detail,setDetail] = useState(route.params);
-
+  console.log(newDatalist);
   return(
     <View>
       <Button
         title="Add"
-        onPress={()=>{navigation.navigate("Add")}}
+        onPress={()=>{props.navigation.navigate("Add")}}
       />
 
-      <FlatList data={details}
-        renderItem={item => {
-          <View>
-            <Text>{item.item}</Text>
-          </View>
-        }}></FlatList>
-
+      
     </View>
+
   );
 }
 
