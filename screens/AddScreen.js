@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { View, Button, StyleSheet, Modal} from "react-native";
+import React, { useState } from "react";
+import { View, Button, StyleSheet, Alert} from "react-native";
 import InputField from "../components/InputField";
 import Card from "../components/Card";
 
@@ -30,19 +30,26 @@ const AddScreen = props =>
   {
     console.log(props.route.params);
 
-    var curData = [{
-      fname: fname,
-      lname: lname,
-      phNumber: phNumber
-    }];
-
-    if(typeof(oldData) === "undefined"){
-      oldData.push(curData);
-    } else {
-      oldData.push.apply(oldData,curData); 
+    if(fname === "" || lname === "" || phNumber === "")
+    {
+      Alert.alert("All Fields are required!",
+        "Please Fill up all Details",[{text:"Okay", onPress: () => {}, style:"cancel"}])
     }
+    else{
+      var curData = [{
+        fname: fname,
+        lname: lname,
+        phNumber: phNumber
+      }];
   
-    props.navigation.navigate("Home", oldData);
+      if(typeof(oldData) === "undefined"){
+        oldData.push(curData);
+      } else {
+        oldData.push.apply(oldData,curData); 
+      }
+    
+      props.navigation.navigate("Home", oldData);
+    }
   };
 
   return(

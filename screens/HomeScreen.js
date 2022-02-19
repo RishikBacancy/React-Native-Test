@@ -31,8 +31,8 @@ const HomeScreen = props =>
       <View style={styles.btnContainer}>
         <Button
           title="Add"
-          disabled={length===10}
-          onPress={()=>{setLength(length+1); props.navigation.navigate("Add",detalis);}}
+          disabled={length === 9}
+          onPress={()=>{setLength(detalis.length); props.navigation.navigate("Add",detalis);}}
         /> 
       </View>
     </View>
