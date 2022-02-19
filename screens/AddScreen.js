@@ -9,6 +9,8 @@ const AddScreen = props =>
   const [lname,setLname] = useState("");
   const [phNumber,setPhNumber] = useState("");
 
+  var oldData = props.route.params;
+
   const inputPhHandler = txtInput =>
   {
     setPhNumber(txtInput.replace(/[^0-9]/g, ""));
@@ -26,7 +28,21 @@ const AddScreen = props =>
 
   const saveHandler = () =>
   {
-    props.navigation.navigate("Home",{fname,lname,phNumber});
+    console.log(props.route.params);
+
+    var curData = [{
+      fname: fname,
+      lname: lname,
+      phNumber: phNumber
+    }];
+
+    if(typeof(oldData) === "undefined"){
+      oldData.push(curData);
+    } else {
+      oldData.push.apply(oldData,curData); 
+    }
+  
+    props.navigation.navigate("Home", oldData);
   };
 
   return(
