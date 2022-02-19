@@ -21,18 +21,20 @@ const HomeScreen = props =>
         data={detalis}
         renderItem={itemData => (
           <Card style={styles.cardContainer}>
-              <Text style={styles.txtContainer}>First Name: {itemData.item.fname}</Text>
-              <Text style={styles.txtContainer}>Last Name: {itemData.item.lname}</Text>
-              <Text style={styles.txtContainer}>Phone : {itemData.item.phNumber}</Text>
+              <Text style={styles.txtContainer}>First Name : <Text style={styles.txtItemContainer}>{itemData.item.fname}</Text></Text>
+              <Text style={styles.txtContainer}>Last Name : <Text style={styles.txtItemContainer}>{itemData.item.lname}</Text></Text>
+              <Text style={styles.txtContainer}>Phone : <Text style={styles.txtItemContainer}>{itemData.item.phNumber}</Text></Text>
           </Card>
         )}
       ></FlatList> 
 
-      <Button
-        title="Add"
-        disabled={length===10}
-        onPress={()=>{setLength(length+1); props.navigation.navigate("Add",detalis);}}
-      /> 
+      <View style={styles.btnContainer}>
+        <Button
+          title="Add"
+          disabled={length===10}
+          onPress={()=>{setLength(length+1); props.navigation.navigate("Add",detalis);}}
+        /> 
+      </View>
     </View>
       
   );
@@ -48,6 +50,16 @@ const styles = StyleSheet.create({
   },
   txtContainer:{
     fontSize:15,
+    color:"black",
+  },
+  txtItemContainer:{
+    color:"gray",
+  },
+  btnContainer:{
+    width: 150,
+    marginTop: 15,
+    marginBottom: 10,
+    alignSelf:"center",
   }
 });
 
