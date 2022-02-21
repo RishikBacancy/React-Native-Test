@@ -28,7 +28,7 @@ const AddScreen = props =>
 
   const saveHandler = () =>
   {
-    console.log(props.route.params);
+    //console.log(props.route.params);
 
     if(fname === "" || lname === "" || phNumber === "")
     {

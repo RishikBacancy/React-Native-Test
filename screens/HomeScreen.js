@@ -1,38 +1,48 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useState} from "react";
 import { View, Button, StyleSheet, FlatList, Text} from "react-native";
 import Card from "../components/Card";
 
 const HomeScreen = props =>
 {
 
-  var detalis = [];
+  var details = [];
   const [length,setLength] = useState(0);
 
   if(typeof(props.route.params) != "undefined"){
-    detalis = props.route.params;
-    console.log(detalis);
-    console.log("-------"+detalis.length);
+    details = props.route.params;
   }
 
+  useEffect(() => {
+    
+    props.navigation.addListener("focus", () => {
+      if(typeof(details) != "undefined"){
+        setLength(details.length);
+      }
+    });
+    
+  },[props.navigation]);  
+  
+  console.log(details);
+  console.log("+++++++"+details.length+"+++++++");
 
   return( 
     <View style={styles.container}>
       <FlatList 
-        data={detalis}
-        renderItem={itemData => (
-          <Card style={styles.cardContainer}>
-              <Text style={styles.txtContainer}>First Name : <Text style={styles.txtItemContainer}>{itemData.item.fname}</Text></Text>
-              <Text style={styles.txtContainer}>Last Name : <Text style={styles.txtItemContainer}>{itemData.item.lname}</Text></Text>
-              <Text style={styles.txtContainer}>Phone : <Text style={styles.txtItemContainer}>{itemData.item.phNumber}</Text></Text>
-          </Card>
-        )}
+            data={details}
+            renderItem={itemData => (
+            <Card style={styles.cardContainer}>
+                <Text style={styles.txtContainer}>First Name : <Text style={styles.txtItemContainer}>{itemData.item.fname}</Text></Text>
+                <Text style={styles.txtContainer}>Last Name : <Text style={styles.txtItemContainer}>{itemData.item.lname}</Text></Text>
+                <Text style={styles.txtContainer}>Phone : <Text style={styles.txtItemContainer}>{itemData.item.phNumber}</Text></Text>
+            </Card>
+            )}
       ></FlatList> 
 
       <View style={styles.btnContainer}>
         <Button
           title="Add"
-          disabled={length === 9}
-          onPress={()=>{setLength(detalis.length); props.navigation.navigate("Add",detalis);}}
+          disabled={length === 10}
+          onPress={()=>{props.navigation.navigate("Add",details);}}
         /> 
       </View>
     </View>
